@@ -60,9 +60,22 @@ public class CompensationServiceImplTest {
         compensation.setEffectiveDate(date);
         compensation.setEmployee(testEmployee);
         compensation.setSalary(1000000);
+
+        Employee testEmployee2 = new Employee();
+        testEmployee2.setFirstName("Jill");
+        testEmployee2.setLastName("Dont");
+        testEmployee2.setDepartment("Software");
+        testEmployee2.setPosition("Engineering");
+        testEmployee2.setEmployeeId("222");
+        Compensation compensation2 = new Compensation();
+        Date date2 = new Date();
+        compensation.setEffectiveDate(date2);
+        compensation.setEmployee(testEmployee);
+        compensation.setSalary(500);
         //Create checks
         Compensation createdCompensation = restTemplate.postForEntity(compensationUrl, compensation, Compensation.class).getBody();
-
+        Compensation createdCompensation2 = restTemplate.postForEntity(compensationUrl, compensation2, Compensation.class).getBody();
+        assertNotNull(createdCompensation2);
         assertNotNull(createdCompensation);
         TestUtils.assertEmployeeEquivalence(testEmployee, createdCompensation.getEmployee());
 
